@@ -1,0 +1,52 @@
+version: '2'
+services:
+  signal-server:
+    build: .
+    container_name: signal_server
+    restart: always
+    ports:
+      - "8070:8080"
+      - "8071:8081"
+    links:
+      - "redis:redis"
+      - "postgresql-message:postgresql-message"
+      - "postgresql-accounts:postgresql-accounts"
+      - "postgresql-abuse:postgresql-abuse"
+    volumes: 
+      - "./service/config/config.yml:/Signal-Server/service/config/config.yml"
+  redis:
+    image: redis
+    container_name: signal_redis
+    restart: always
+    ports:
+      - "6379:6379"
+  postgresql-message:
+    image: postgres
+    container_name: signal_postgres_message
+    restart: always
+    volumes:
+      - ./postgresql/messagedb:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=signal_db
+  postgresql-accounts:
+    image: postgres
+    container_name: signal_postgres_accounts
+    restart: always
+    volumes:
+      - ./postgresql/accountdb:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=signal_db
+  postgresql-abuse:
+    image: postgres
+    container_name: signal_postgres_abuse
+    restart: always
+    volumes:
+      - ./postgresql/abusedb:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=signal_db
