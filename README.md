@@ -38,6 +38,11 @@ Run signal server
 docker-compose up -d signal-server
 ```
 
+SMS code
+-------------
+
+The default code is `111 111`
+
 Cryptography Notice
 ------------
 
