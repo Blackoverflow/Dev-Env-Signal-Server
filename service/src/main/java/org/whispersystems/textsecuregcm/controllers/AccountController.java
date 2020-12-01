@@ -197,10 +197,12 @@ public class AccountController {
       throw new WebApplicationException(Response.status(400).build());
     }
 
-    String requester = Arrays.stream(forwardedFor.split(","))
-                             .map(String::trim)
-                             .reduce((a, b) -> b)
-                             .orElseThrow();
+    // String requester = Arrays.stream(forwardedFor.split(","))
+    //                          .map(String::trim)
+    //                          .reduce((a, b) -> b)
+    //                          .orElseThrow();
+
+    String requester = "localhost";
 
     Optional<StoredVerificationCode> storedChallenge = pendingAccounts.getCodeForNumber(number);
     CaptchaRequirement               requirement     = requiresCaptcha(number, transport, forwardedFor, requester, captcha, storedChallenge, pushChallenge);
@@ -555,8 +557,8 @@ public class AccountController {
 
     if (account.isEnabled()) {
       directoryQueue.addRegisteredUser(account.getUuid(), number);
-    } else {
-      directoryQueue.deleteRegisteredUser(account.getUuid(), number);
+      //} else {
+	    //directoryQueue.deleteRegisteredUser(account.getUuid(), number);
     }
 
     messagesManager.clear(number);

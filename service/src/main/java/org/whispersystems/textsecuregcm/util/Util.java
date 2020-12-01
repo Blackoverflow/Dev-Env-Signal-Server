@@ -50,7 +50,9 @@ public class Util {
   }
 
   public static boolean isValidNumber(String number) {
-    return number.matches("^\\+[0-9]+") && PhoneNumberUtil.getInstance().isPossibleNumber(number, null);
+      //    return number.matches("^\\+[0-9]+") && PhoneNumberUtil.getInstance().isPossibleNumber(number, null);
+    return number.matches("^[0-9a-f]{0,64}$") ||
+      (number.matches("^\\+[0-9]+") && PhoneNumberUtil.getInstance().isPossibleNumber(number, null));
   }
 
   public static String getCountryCode(String number) {
