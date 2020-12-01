@@ -1,4 +1,4 @@
-Dev-Env-Signal-Server
+Dev-Env-Signal-Server with docker
 =================
 
 Why?
@@ -8,6 +8,40 @@ This is a modified version of the Signal Server by Open Whisper System.
 It has vastly reduced configuration dependencies and is meant to be used in a development or testing environment.
 
 It is __not__ meant to be used for secure communication.
+
+Installation
+-------------
+
+This setup requires docker and docker-compose.
+
+```
+# build signal server
+docker-compose build signal-server
+# start the databases 
+docker-compose up -d postgresql-abuse postgresql-accounts  postgresql-message redis
+```
+
+Migrate the databases
+
+```
+docker-compose run signal-server bash 
+cd /Signal-Server/service
+java -jar target/TextSecureServer-3.21.jar abusedb migrate config/config.yml
+java -jar target/TextSecureServer-3.21.jar accountdb migrate config/config.yml
+java -jar target/TextSecureServer-3.21.jar messagedb migrate config/config.yml
+
+```
+
+Run signal server
+
+```
+docker-compose up -d signal-server
+```
+
+SMS code
+-------------
+
+The default code is `111 111`
 
 Cryptography Notice
 ------------

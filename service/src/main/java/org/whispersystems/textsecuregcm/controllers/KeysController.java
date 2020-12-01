@@ -106,9 +106,9 @@ public class KeysController {
     if (updateAccount) {
       accounts.update(account);
 
-      if (!wasAccountEnabled && account.isEnabled()) {
-        directoryQueue.addRegisteredUser(account.getUuid(), account.getNumber());
-      }
+      // if (!wasAccountEnabled && account.isEnabled()) {
+      // 	      directoryQueue.addRegisteredUser(account.getUuid(), account.getNumber());
+      // }
     }
 
     keys.store(account.getNumber(), device.getId(), preKeys.getPreKeys());

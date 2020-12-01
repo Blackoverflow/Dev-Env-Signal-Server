@@ -1,0 +1,45 @@
+cache: # redis server for cache cluster
+  url: redis://redis:6379/cache # change to your redis server
+  replicaUrls:
+    -  redis://redis:6379/cacheReplica # change to your redis server
+messageCache: # Redis server configuration for message store cache
+  redis:
+    replicaUrls:
+      -  redis://redis:6379/cacheReplica
+    url: redis://redis:6379/cache
+
+pubsub: # redis server for pubsub cache
+  url: redis://redis:6379/cache # change to your redis server
+  replicaUrls:
+    -  redis://redis:6379/cacheReplica # change to your redis server
+
+pushScheduler: # redis server for push scheduler
+  url: redis://redis:6379/pushScheduler # change to your redis server
+  replicaUrls:
+    - redis://redis:6379/pushSchedulerReplica # change to your redis server
+
+accountsDatabase: # database for account
+  driverClass: org.postgresql.Driver
+  user:        postgres
+  password:    postgres
+  url:         jdbc:postgresql://postgresql-accounts:5432/signal_db
+
+messageStore: # database for message
+  driverClass: org.postgresql.Driver
+  user:        postgres
+  password:    postgres
+  url:         jdbc:postgresql://postgresql-message:5432/signal_db
+
+abuseDatabase: # database for abuse
+  driverClass: org.postgresql.Driver
+  user:        postgres
+  password:    postgres
+  url:         jdbc:postgresql://postgresql-abuse:5432/signal_db
+
+server: # server configuration
+  applicationConnectors:
+    - type: http
+      port: 8080 # your signal server will run on this port
+  adminConnectors:
+    - type: http
+      port: 8081 # your signal server admin will run on this port
