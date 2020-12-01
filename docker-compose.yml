@@ -18,8 +18,6 @@ services:
     image: redis
     container_name: signal_redis
     restart: always
-    ports:
-      - "6379:6379"
   postgresql-message:
     image: postgres
     container_name: signal_postgres_message
